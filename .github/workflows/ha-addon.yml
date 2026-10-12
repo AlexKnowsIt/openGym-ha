@@ -80,7 +80,9 @@ jobs:
             echo "newest upstream release: $tag"
             git fetch --no-tags "$UPSTREAM" "refs/tags/$tag:refs/tags/upstream-$tag"
             if ! git merge-base --is-ancestor "upstream-$tag" HEAD; then
-              git merge --no-edit -m "Merge upstream openGym $tag" "upstream-$tag"
+              # [skip ci]: the merge was tested on ha-sync and is built by this run; without it, a new
+              # upstream workflow would start on main before inherited-workflows can disable it.
+              git merge --no-edit -m "Merge upstream openGym $tag [skip ci]" "upstream-$tag"
               changed=true
             fi
           fi
