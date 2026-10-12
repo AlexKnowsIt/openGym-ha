@@ -1,3 +1,10 @@
+> **Home Assistant add-on.** This repository is a fork of
+> [DuarteSantos8/openGym](https://github.com/DuarteSantos8/openGym) that packages openGym as a
+> Home Assistant add-on. The app itself is created and maintained by
+> **[Duarte Santos](https://github.com/DuarteSantos8)**; this fork only adds the add-on
+> [(see below)](#home-assistant-add-on). Bugs and feature requests about the app belong
+> [upstream](https://github.com/DuarteSantos8/openGym/issues).
+
 <div align="center">
 
 <img src="assets/banner.png" alt="openGym" width="720">
@@ -188,11 +195,39 @@ variable. The [self-hosting guide](docs/SELF_HOSTING.md) covers every option in 
 openGym runs as a Home Assistant add-on with ingress — it opens from the sidebar, and each
 Home Assistant user is signed in to their own profile automatically.
 
+**What the add-on gives you**
+
+- **No extra login:** every Home Assistant user gets their own profile, named after their display
+  name. The first one to open it becomes the openGym admin.
+- **No port forwarding, domain or HTTPS setup:** it is served through Home Assistant's ingress, so
+  it works wherever your Home Assistant does, including the Home Assistant app on your phone.
+- **Included in Home Assistant backups:** all data lives in the add-on's `/data` folder.
+- **Prebuilt images** for `amd64` and `aarch64`; nothing is built on your device.
+- **Automatic updates:** a GitHub Action checks upstream openGym weekly, merges the newest release,
+  runs the test suites and publishes the new image. Home Assistant then offers it as a normal
+  update.
+- **Options:** `allow_guest` (offer "continue without account") and `default_lang` (language for
+  new profiles).
+
+Everything else is openGym as described above: routines, guided workouts, progression rules,
+1RM and muscle-balance stats, body weight, imports from Strong/Hevy/FitNotes, 18 languages.
+The optional AI coach is not included in the add-on.
+
+**Install**
+
 1. Settings → Add-ons → Add-on Store → ⋮ → Repositories → add
    `https://github.com/AlexKnowsIt/openGym---ha`
 2. Install **openGym**, start it, enable "Show in sidebar".
 
-Details: [opengym/DOCS.md](opengym/DOCS.md).
+Details: [opengym/DOCS.md](opengym/DOCS.md). Maintainer notes for the fork: [AGENTS.md](AGENTS.md).
+
+**Credits.** openGym is the work of [Duarte Santos](https://github.com/DuarteSantos8), who
+designs, maintains and releases the app
+([DuarteSantos8/openGym](https://github.com/DuarteSantos8/openGym), AGPL-3.0). All the credit for
+the app goes to them — if you like it, star the
+[original repository](https://github.com/DuarteSantos8/openGym) or
+[buy them a coffee](https://buymeacoffee.com/duartesantos). The add-on packaging in this fork is
+maintained by [AlexKnowsIt](https://github.com/AlexKnowsIt).
 
 ## Phone app
 

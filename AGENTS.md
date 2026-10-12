@@ -29,7 +29,7 @@ else.
 | `api/server.js` | `sessionOf()` starts with the `HA_INGRESS` block calling `ingressUser(req)`. |
 | `api/server.js` | `HA_INGRESS`, `utf8Header` and `ingressUser()` right after `readSession()`. |
 | `api/server.js` | `server.listen(PORT, process.env.HOST \|\| undefined, …)` at the end of the file. |
-| `README.md` | The "Home Assistant add-on" section before "Phone app". |
+| `README.md` | The fork notice at the very top and the "Home Assistant add-on" section (features, install, credits) before "Phone app". |
 | `CLAUDE.md` | The pointer to this file at the end. |
 
 If upstream renames or restructures `sessionOf`, `readSession` or `server.listen`, re-apply the
