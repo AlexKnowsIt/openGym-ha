@@ -57,7 +57,7 @@ as user `ha-<id>` (created on first sight, named after `X-Remote-User-Display-Na
 
 ## Updates (`.github/workflows/ha-addon.yml`)
 
-1. **sync** — daily (and on "Run workflow"): merges the newest upstream `vX.Y.Z` tag onto
+1. **sync** — weekly, Mondays (and on "Run workflow"): merges the newest upstream `vX.Y.Z` tag onto
    `main` and pushes the result to the `ha-sync` branch only.
 2. **test** — `ha-addon-test.yml` on that merge, the same checks every pull request gets.
 3. **promote** — only if all of them pass: fast-forwards `main` to the tested merge.

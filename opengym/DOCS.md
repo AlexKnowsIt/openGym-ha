@@ -24,5 +24,5 @@ Exercise images and animations are loaded by the browser from the jsDelivr CDN
 ## Updating
 
 Home Assistant offers updates like for any other add-on. A GitHub Action in this repository
-checks openGym daily for a new release, merges it, builds the image and publishes the new
+checks openGym weekly for a new release, merges it, builds the image and publishes the new
 version. Nothing is built on your device.

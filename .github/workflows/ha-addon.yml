@@ -2,7 +2,7 @@ name: Home Assistant add-on
 
 # Keeps the add-on current without anything being built on the Home Assistant device:
 #
-#   sync    (daily, or by hand) merges the newest upstream openGym release (vX.Y.Z tag of
+#   sync    (weekly, or by hand) merges the newest upstream openGym release (vX.Y.Z tag of
 #           DuarteSantos8/openGym) onto main and pushes the result to the ha-sync branch only.
 #           A conflict fails the run; AGENTS.md says how to resolve it.
 #   test    ha-addon-test.yml on that merge — the same checks a pull request gets.
@@ -21,7 +21,7 @@ name: Home Assistant add-on
 
 on:
   schedule:
-    - cron: '17 4 * * *'
+    - cron: '17 4 * * 1'
   workflow_dispatch:
   push:
     branches: [main]
