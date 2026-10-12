@@ -637,6 +637,12 @@ function ingressUser(req) {
   audit(req, 'auth.register.ok', { user });
   return user;
 }
+// Under ingress the page's origin is Home Assistant's own address, never ORIGIN. Over plain http
+// the browser sends no Sec-Fetch-Site (not a trustworthy origin), so the Origin has to be the
+// host Home Assistant forwarded: a request from any other site names another host.
+const ingressOriginOk = (req, origin) => {
+  try { return new URL(origin).host === String(req.headers['x-forwarded-host'] || '').toLowerCase(); } catch { return false; }
+};
 // Guard for /api/admin/* — resolves the caller and 401/403s if they aren't an admin.
 function requireAdmin(req, res) {
   const user = readSession(req);
@@ -698,7 +704,7 @@ function csrfOk(req, key) {
   // Browsers put an Origin on every state-changing request and a page cannot suppress it, so the
   // forgery this exists to stop always carries one.
   if (!origin) return true;
-  return originsMatch(origin, ORIGIN);
+  return originsMatch(origin, ORIGIN) || (HA_INGRESS && ingressOriginOk(req, origin));
 }
 
 /* ---------- challenge store (in-memory, 5 min TTL) ---------- */
