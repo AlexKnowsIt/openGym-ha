@@ -50,3 +50,13 @@ test('without HA_INGRESS the headers are ignored', async t => {
   const h = await startServer(t, {});
   assert.equal((await h.me({ 'X-Remote-User-Id': HID })).status, 401);
 });
+
+test('HA_INGRESS accepts a write from Home Assistant\'s own origin when the browser sends no Sec-Fetch-Site', async t => {
+  const h = await startServer(t, { HA_INGRESS: '1' });
+  const put = origin => fetch(`${h.api}/api/data`, {
+    method: 'PUT', body: JSON.stringify({ state: { unit: 'kg', workouts: [], routines: [] } }),
+    headers: { 'Content-Type': 'application/json', 'X-Remote-User-Id': HID, 'X-Forwarded-Host': '192.168.0.120:8123', Origin: origin },
+  }).then(r => r.status);
+  assert.equal(await put('http://192.168.0.120:8123'), 200);
+  assert.equal(await put('http://evil.example'), 403);
+});

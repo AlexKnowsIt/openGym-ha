@@ -29,6 +29,7 @@ else.
 | `api/server.js` | `sessionOf()` starts with the `HA_INGRESS` block calling `ingressUser(req)`. |
 | `api/server.js` | `HA_INGRESS`, `utf8Header` and `ingressUser()` right after `readSession()`. |
 | `api/server.js` | `server.listen(PORT, process.env.HOST \|\| undefined, …)` at the end of the file. |
+| `api/server.js` | `csrfOk()` ends with `\|\| (HA_INGRESS && ingressOriginOk(req, origin))`; `ingressOriginOk` sits after `ingressUser()`. |
 | `README.md` | The fork notice at the very top and the "Home Assistant add-on" section (features, install, credits) before "Phone app". |
 | `CLAUDE.md` | The pointer to this file at the end. |
 
