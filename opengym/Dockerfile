@@ -12,10 +12,7 @@ COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci --ignore-scripts
 COPY api/coach/core/ /src/api/coach/core/
 COPY frontend/ ./
-# Exercise media comes from the CDN the mobile build uses: no ~140 MB download, no media volume.
-RUN VITE_IMG_BASE=https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@7455efae41b330c265e7cd4b78dfa848e7ce5ebd/images/ \
-    VITE_GIF_BASE=https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@7455efae41b330c265e7cd4b78dfa848e7ce5ebd/videos/ \
-    npm run build
+RUN npm run build
 WORKDIR /src/api
 COPY api/package.json api/package-lock.json ./
 RUN npm ci --omit=dev --omit=optional
@@ -28,6 +25,9 @@ LABEL io.hass.type="addon" io.hass.version="$BUILD_VERSION" io.hass.arch="$BUILD
 RUN apk add --no-cache nginx && mkdir -p /run/nginx
 COPY --from=build /src/api /app/api
 COPY --from=build /src/frontend/dist /app/web
+# The exercise stills and animations ship in the image, as in upstream's web image (see
+# catalogue/media/NOTICE.md).
+COPY catalogue/media/ /app/web/exercise-media/
 COPY opengym/nginx.conf /etc/nginx/http.d/default.conf
 COPY --chmod=755 opengym/run.sh /run.sh
 ENV NODE_ENV=production

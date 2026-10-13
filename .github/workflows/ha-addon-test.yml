@@ -37,7 +37,8 @@ jobs:
           node-version: 22
       - name: API
         working-directory: api
-        run: npm ci --omit=optional && npm test
+        # Upstream's coach fixtures went stale on 2026-10-12; see opengym/test/clock.mjs.
+        run: npm ci --omit=optional && TEST_CLOCK=2026-10-10T00:00:00Z NODE_OPTIONS="--import $PWD/../opengym/test/clock.mjs" npm test
       - name: Frontend
         working-directory: frontend
         run: npm ci --ignore-scripts && npm test
