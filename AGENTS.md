@@ -107,6 +107,10 @@ E2E=1 PLAYWRIGHT=<path to playwright/index.mjs> opengym/test/smoke.sh opengym-ha
 | `opengym/test/ingress-e2e.mjs` (`E2E=1`) | Chromium loads the app in an iframe behind a prefix-stripping ingress stand-in: signed in without a login screen, every API call stays under the ingress prefix, no page errors. |
 | aarch64 image build | ARM images that fail to build. |
 
+The API suite runs with its clock set to 2026-10-10 (`opengym/test/clock.mjs`), because upstream's
+coach fixtures date a workout 2026-07-20 and drop out of the coach's 12-week window after that.
+Remove `TEST_CLOCK`/`NODE_OPTIONS` from `ha-addon-test.yml` once upstream dates them relative to today.
+
 When a test fails, fix the code, not the test — unless upstream deliberately changed the
 behavior the test pins down.
 
